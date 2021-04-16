@@ -1,10 +1,49 @@
 import { parseCookies } from 'nookies'
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+
+const useStyles = makeStyles({
+  table: {
+    minWidth: 650,
+  },
+});
 
 const PayedArticles = ({posts}) => {
-    console.log(posts);
-    return (<div><h1>Payed articles</h1>
-        {posts.map(post => (<div key={post.id}><p>{post.title}</p><p>{post.content}</p></div>))}
-    </div>)
+    const classes = useStyles();
+    return (
+    <div>
+      <TableContainer component={Paper}>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Dessert (100g serving)</TableCell>
+              <TableCell align="right">Calories</TableCell>
+              <TableCell align="right">Fat&nbsp;(g)</TableCell>
+              <TableCell align="right">Carbs&nbsp;(g)</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {posts.map((post) => (
+              <TableRow key={post.title}>
+                <TableCell component="th" scope="row">
+                  {post.title}
+                </TableCell>
+                <TableCell align="right">{post.id}</TableCell>
+                <TableCell align="right">{post.title}</TableCell>
+                <TableCell align="right">{post.content}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
+    )
 
 }
 
