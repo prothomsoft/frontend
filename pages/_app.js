@@ -4,6 +4,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from './utils/theme';
 import { parseCookies } from 'nookies';
+import { CounterProvider } from './utils/state'
 
 const MyApp = ({ Component, pageProps }) => {
   useEffect(() => {
@@ -13,17 +14,19 @@ const MyApp = ({ Component, pageProps }) => {
     }
   }, []);
 
-  return (
-    <Fragment>
-      <Head>
-        <title>My page</title>
-        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
-      </Head>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </Fragment>
+  return (    
+      <Fragment>
+        <Head>
+          <title>My page</title>
+          <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+        </Head>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+            <CounterProvider>
+              <Component {...pageProps} />
+           </CounterProvider>
+        </ThemeProvider>
+      </Fragment>
   );
 }
 

@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 const PayedArticles = ({posts}) => {
     const classes = useStyles();
     return (
-    <div>
+    <div>    
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead>

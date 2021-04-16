@@ -1,24 +1,32 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Link from 'next/link'
+import { useCount, useDispatchCount } from './utils/state'
 
 const HomePage = () => {
+  const count = useCount()
+  const dispatch = useDispatchCount()
+
+  const handleIncrease = (event) =>
+    dispatch({
+      type: 'INCREASE',
+    })
+  const handleIncrease15 = (event) =>
+    dispatch({
+      type: 'INCREASE_BY',
+      payload: 15,
+    })
+
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-      </main>
-
-      <footer className={styles.footer}>
-       
-      </footer>
-    </div>
+    <>
+    <h1>ABOUT</h1>
+    <p>Counter: {count}</p>
+    <button onClick={e => handleIncrease(e)}>Increase</button>
+    <button onClick={e => handleIncrease15(e)}>Increase By 15</button>
+    <p>
+      <Link href="/login">
+        <a>Login</a>
+      </Link>
+    </p>
+  </>
   )
 }
 
