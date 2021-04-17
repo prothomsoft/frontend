@@ -4,7 +4,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from './utils/theme';
 import { parseCookies } from 'nookies';
-import { CounterProvider } from './utils/state'
+import { AuthProvider } from './hooks/auth-provider'
 
 const MyApp = ({ Component, pageProps }) => {
   useEffect(() => {
@@ -22,9 +22,9 @@ const MyApp = ({ Component, pageProps }) => {
         </Head>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-            <CounterProvider>
+            <AuthProvider>
               <Component {...pageProps} />
-           </CounterProvider>
+           </AuthProvider>
         </ThemeProvider>
       </Fragment>
   );
