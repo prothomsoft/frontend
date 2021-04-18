@@ -9,18 +9,18 @@ export const useAuth = () => {
     const authDispatch = useAuthDispatch()
 
     const login = async (username, password, path) => {
-        const loginCredentials = {
+        const loginDto = {
             username : username,
             password: password
         }
         const server = 'http://localhost:5000';
         const login = await fetch(`${server}/login`,
         {
-            method: "POST",
+            method: 'POST',
             headers: {
-            Accept: "application/json; charset=UTF-8"
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify(loginCredentials)
+            body: JSON.stringify(loginDto)
         })
         const loginResponse = await login.json();
 
@@ -42,6 +42,27 @@ export const useAuth = () => {
         Router.push(path);
     }
 
+    const register = async (username, password, roles, enabled, path) => {
+        const registerDto = {
+            username : username,
+            password: password,
+            roles: roles,
+            enabled: enabled
+        }
+        const server = 'http://localhost:5000';
+        const register = await fetch(`${server}/register`,
+        {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(registerDto)
+        })
+        ///const registerResponse = await register.json();
+
+        Router.push(path);
+    }
+
     const logout = useCallback((path) => {
 
         destroyCookie(null, 'jwt')
@@ -57,5 +78,5 @@ export const useAuth = () => {
         Router.push(path);
     }, [])
 
-    return { login, logout, authState }
+    return { login, logout, register, authState }
 }
