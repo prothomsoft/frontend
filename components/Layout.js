@@ -1,10 +1,22 @@
-import Link from 'next/link'
-import Head from 'next/head'
+import Link from "next/link";
+import Head from "next/head";
+import { useAuth } from "../pages/hooks/auth-hook";
 
 export default function Layout({
   children,
-  title = 'This is the default title',
+  title = "This is the default title",
 }) {
+  const { logout, authState } = useAuth();
+
+  let logoutButton = null;
+  if (authState.username) {
+    logoutButton = (
+      <button type="button" onClick={(e) => logout("/login")}>
+        Logout
+      </button>
+    );
+  }
+
   return (
     <div>
       <Head>
@@ -16,25 +28,37 @@ export default function Layout({
         <nav>
           <Link href="/">
             <a>Home</a>
-          </Link>{' '}
-          |
+          </Link>{" "}
+          |{" "}
           <Link href="/login">
             <a>Login</a>
-          </Link>{' '}
-          |
+          </Link>{" "}
+          |{" "}
           <Link href="/register">
             <a>Register</a>
-          </Link>{' '}
-          |
-          <Link href="/payed-articles">
-            <a>Payed Articles</a>
-          </Link>
+          </Link>{" "}
+          |{" "}
+          <Link href="/upload-file">
+            <a>Upload File</a>
+          </Link>{" "}
+          |{" "}
+          <Link href="/upload-files">
+            <a>Upload Files</a>
+          </Link>{" "}
+          |{" "}
+          <Link href="/posts">
+            <a>Posts</a>
+          </Link>{" "}
+          | {logoutButton}
         </nav>
       </header>
 
       {children}
 
-      <footer>{'I`m here to stay'}</footer>
+      <footer>
+        <br />
+        {"footer"}
+      </footer>
     </div>
-  )
+  );
 }

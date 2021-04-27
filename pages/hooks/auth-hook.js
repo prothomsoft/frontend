@@ -1,40 +1,33 @@
 import Router from 'next/router'
-import { useCallback, useEffect } from "react";
+import jwt_decode from 'jwt-decode'
+import { useCallback } from 'react'
 import { useAuthState, useAuthDispatch } from './auth-provider'
 import { setCookie, destroyCookie } from 'nookies'
-import jwt_decode from "jwt-decode";
+import { loginUser, registerUser } from '../data/api'
 
 export const useAuth = () => {
     const authState = useAuthState()
     const authDispatch = useAuthDispatch()
 
     const login = async (username, password, path) => {
-        const loginDto = {
-            username : username,
-            password: password
+      
+        const jwt = await loginUser(username, password);
+       
+        if (jwt == "") {
+            return false;
         }
-        const server = 'http://localhost:5000';
-        const login = await fetch(`${server}/login`,
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(loginDto)
-        })
-        const loginResponse = await login.json();
 
-        setCookie(null, 'jwt', loginResponse.jwt, {
+        setCookie(null, 'jwt', jwt, {
             maxAge: 30 * 24 * 60 * 60,
             path: '/'
         });
 
-        var decoded = jwt_decode(loginResponse.jwt);
+        var decoded = jwt_decode(jwt);
        
         authDispatch({
             type: 'LOGIN',
             payload: {
-                token: loginResponse.jwt, 
+                token: jwt, 
                 username : decoded.sub
             }            
         })
@@ -43,23 +36,9 @@ export const useAuth = () => {
     }
 
     const register = async (username, password, roles, enabled, path) => {
-        const registerDto = {
-            username : username,
-            password: password,
-            roles: roles,
-            enabled: enabled
-        }
-        const server = 'http://localhost:5000';
-        const register = await fetch(`${server}/register`,
-        {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(registerDto)
-        })
-        ///const registerResponse = await register.json();
-
+        
+        await registerUser(username, password, roles, enabled);
+        
         Router.push(path);
     }
 
