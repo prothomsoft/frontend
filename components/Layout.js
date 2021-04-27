@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Head from "next/head";
-import { useAuth } from "../pages/hooks/auth-hook";
+import { useAuth } from "../hooks/auth-hook";
 
 export default function Layout({
   children,

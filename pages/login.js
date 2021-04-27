@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useAuth } from './hooks/auth-hook'
+import { useAuth } from '../hooks/auth-hook'
 
 const Login = () => {    
     const [username, setUsername] = useState('')

@@ -1,10 +1,10 @@
 import { useEffect, Fragment } from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { parseCookies } from 'nookies';
-import { AuthProvider } from './hooks/auth-provider'
+import { AuthProvider } from '../hooks/auth-provider'
 import Head from 'next/head';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import theme from './utils/theme';
+import theme from '../components/utils/theme';
 import Layout from '../components/layout'
 
 const MyApp = ({ Component, pageProps }) => {

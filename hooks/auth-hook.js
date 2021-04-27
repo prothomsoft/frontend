@@ -3,7 +3,7 @@ import jwt_decode from 'jwt-decode'
 import { useCallback } from 'react'
 import { useAuthState, useAuthDispatch } from './auth-provider'
 import { setCookie, destroyCookie } from 'nookies'
-import { loginUser, registerUser } from '../data/api'
+import { loginUser, registerUser } from '../api/api'
 
 export const useAuth = () => {
     const authState = useAuthState()
